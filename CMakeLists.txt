@@ -1,5 +1,5 @@
 # This CMake config generates a Makefile with the following targets:
-# 1. Standalone library for the Example class
+# 1. Standalone library for the Example class (see component CMakeLists.txt)
 # 2. Driver binary that uses the standalone library generated in (1)
 # 3. Google Test framework binary that unit tests the library generated in (1)
 #
@@ -71,18 +71,28 @@ set(${CMAKE_PROJECT_NAME}_bin_src
 add_executable(${CMAKE_PROJECT_NAME}_bin ${${CMAKE_PROJECT_NAME}_bin_src})
 IF(DO_UT)
 
-    # Install the google test libraries, setting relevant CMake policy to use
-    # downloaded file metadata behavior for FetchContent
-    cmake_policy(SET CMP0135 NEW)
+    ## Uncomment this block to do a local install of Google Test libraries
+    ## if you don't want to 'sudo apt-get -y install libgtest-dev' on your system
+    ## Install the google test libraries, setting relevant CMake policy to use
+    ## downloaded file metadata behavior for FetchContent
+    #cmake_policy(SET CMP0135 NEW)
 
-    message(STATUS "Downloading googletest dependencies")
-    FetchContent_Declare(
-        googletest
-        #URL https://github.com/google/googletest/archive/f8d7d77c06936315286eb55f8de22cd23c188571.zip
-        URL https://github.com/google/googletest/archive/b514bdc898e2951020cbdca1304b75f5950d1f59.zip
-    )
-    FetchContent_MakeAvailable(googletest)
-    message(STATUS "Downloading googletest dependencies -- done")
+    #message(STATUS "Downloading googletest dependencies")
+    #FetchContent_Declare(
+    #    googletest
+    #    #URL https://github.com/google/googletest/archive/f8d7d77c06936315286eb55f8de22cd23c188571.zip
+    #    URL https://github.com/google/googletest/archive/b514bdc898e2951020cbdca1304b75f5950d1f59.zip
+    #)
+    #FetchContent_MakeAvailable(googletest)
+    #message(STATUS "Downloading googletest dependencies -- done")
+
+    # Assert that Google Test is installed
+    # Comment this line if doing local install as described above
+    find_package(GTest REQUIRED)
+
+    # Assert that gcovr is installed, and get its path
+    # The variable 'gcovr_EXECUTABLE' should now hold the path to gcovr
+    find_program(gcovr_EXECUTABLE gcovr REQUIRED)
 
     # Define the sources and executable for the UT suite
     set(${CMAKE_PROJECT_NAME}_unittest_src
@@ -102,12 +112,17 @@ IF(DO_UT)
     # add a dependency on the test binary to ensure it's compiled before executing
     add_custom_target(
         check
-        COMMAND ${CMAKE_PROJECT_NAME}_unittest_bin
-        WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
         COMMENT "Executing UT suite (in ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})..."
+        WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+        COMMAND ${CMAKE_PROJECT_NAME}_unittest_bin
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+        COMMENT "Generating UT coverage report..."
+        COMMAND ${gcovr_EXECUTABLE} -r .. -f '../src'
     )
 
+    # Set UT binary as a dependency for the 'check' target
     add_dependencies(check ${CMAKE_PROJECT_NAME}_unittest_bin)
+
 ENDIF(DO_UT)
 
 # Add the component include directory to the binary targets
