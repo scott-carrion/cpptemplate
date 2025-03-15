@@ -28,7 +28,6 @@ pipeline {
           dir('build') {
             sh 'make check'
           }
-          sh 'gcovr -r . --filter src*'
         }
         echo "Finished component UT!"
       }
@@ -46,11 +45,11 @@ pipeline {
         timeout(time:10) {
           // Set the git username and email for Jenkins automation
           sh 'git config user.name "Jenkins"'
-          sh 'git config user.email "no_reply@churroscastle.com"'
+          sh 'git config user.email "noreply@btltechs.com"'
 
           // Tag the latest build with a cdlabel, and update the "latest" tag
           sh 'git tag -af latest_passed -m "[Jenkins Automation] Latest passed build tag"'
-          sh 'git tag -af \$GIT_TAG -m "[Jenkins Automation] cdlabel tag (\$GIT_TAG)"'
+          sh 'git tag -af \$GIT_TAG -m "[Jenkins Automation] Component cdlabel tag (\$GIT_TAG)"'
           sh 'git push -f origin --tags'
 
         }
