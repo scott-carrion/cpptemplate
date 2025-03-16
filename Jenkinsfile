@@ -47,18 +47,10 @@ pipeline {
           sh 'git config user.name "Jenkins"'
           sh 'git config user.email "noreply@btltechs.com"'
 
-
-          sshagent(['b9572000-b0bb-4170-bb54-5d75774bfc15']) {
-            // Tag the latest build with a cdlabel, and update the "latest" tag
-            sh 'git tag -af latest_passed -m "[Jenkins Automation] Latest passed build tag"'
-            sh 'git tag -af \$GIT_TAG -m "[Jenkins Automation] Component cdlabel tag (\$GIT_TAG)"'
-            sh 'git push -f origin --tags'
-          }
-
           // Tag the latest build with a cdlabel, and update the "latest" tag
-          //sh 'git tag -af latest_passed -m "[Jenkins Automation] Latest passed build tag"'
-          //sh 'git tag -af \$GIT_TAG -m "[Jenkins Automation] Component cdlabel tag (\$GIT_TAG)"'
-          //sh 'git push -f origin --tags'
+          sh 'git tag -af latest_passed -m "[Jenkins Automation] Latest passed build tag"'
+          sh 'git tag -af \$GIT_TAG -m "[Jenkins Automation] Component cdlabel tag (\$GIT_TAG)"'
+          sh 'git push -f origin --tags'
 
         }
         echo "Finished component deploy!"
