@@ -48,6 +48,7 @@ pipeline {
           sh 'git config user.email "noreply@btltechs.com"'
 
           // Tag the latest build with a cdlabel, and update the "latest" tag
+          sh 'git remote -v'
           sh 'git tag -af latest_passed -m "[Jenkins Automation] Latest passed build tag"'
           sh 'git tag -af \$GIT_TAG -m "[Jenkins Automation] Component cdlabel tag (\$GIT_TAG)"'
           sh 'git push -f origin --tags'
