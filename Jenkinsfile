@@ -43,15 +43,16 @@ pipeline {
       steps {
         echo "Starting component deploy..."
         timeout(time:10) {
-          // Set the git username and email for Jenkins automation
-          sh 'git config user.name "Jenkins"'
-          sh 'git config user.email "noreply@btltechs.com"'
+          sshagent(['7b5fd228-92e3-43f1-87aa-952f8dcb0fcc']) {
+            // Set the git username and email for Jenkins automation
+            sh 'git config user.name "Jenkins"'
+            sh 'git config user.email "noreply@btltechs.com"'
 
-          // Tag the latest build with a cdlabel, and update the "latest" tag
-          sh 'git tag -af latest_passed -m "[Jenkins Automation] Latest passed build tag"'
-          sh 'git tag -af \$GIT_TAG -m "[Jenkins Automation] Component cdlabel tag (\$GIT_TAG)"'
-          sh 'git push -f origin --tags'
-
+            // Tag the latest build with a cdlabel, and update the "latest" tag
+            sh 'git tag -af latest_passed -m "[Jenkins Automation] Latest passed build tag"'
+            sh 'git tag -af \$GIT_TAG -m "[Jenkins Automation] Component cdlabel tag (\$GIT_TAG)"'
+            sh 'git push -f origin --tags'
+          }
         }
         echo "Finished component deploy!"
       }
