@@ -1,4 +1,5 @@
 *** Settings ***
+Name             Integration Test Suite
 Documentation    A simple test suite that executes the 'main' binary with various inputs.
 ...              To run this, installation of ``requirements.txt``, typically into a python
 ...              virtual environment, is required. Run this test suite from the root of the
