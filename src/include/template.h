@@ -9,4 +9,7 @@ struct Template {
     // Member functions
     // Calculates a + b
     int sum();
+
+    // Calculates a / b
+    int divide();
 };

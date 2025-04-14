@@ -47,3 +47,12 @@ TEST_F(ExampleTest, SumTest2) {
   uut.b = -333;
   ASSERT_EQ(uut.sum(), 0);
 }
+
+// Test correctness of divide() for uut
+// Note that this doesn't handle division by zero!
+TEST_F(ExampleTest, DivideTest) {
+  uut.a = 4;
+  uut.b = 2;
+  ASSERT_EQ(uut.divide(), 2);
+}
+
