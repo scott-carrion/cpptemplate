@@ -1,5 +1,5 @@
 # Example GitHub Actions YAML config file
-name: Run UT Suite
+name: Run UT and Integration Testing
 
 on:
   push:
