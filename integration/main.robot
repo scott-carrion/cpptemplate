@@ -8,7 +8,7 @@ Library           String
 
 *** Variables ***
 # Path to target binary, again, from root of repository
-${CLI_CMD}        bin/template_bin
+${CLI_CMD}        build/bin/template_bin
 
 *** Test Cases ***
 Test Add and Divide Functionality
