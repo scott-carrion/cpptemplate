@@ -1,8 +1,13 @@
 *** Settings ***
+Documentation    A simple test suite that executes the 'main' binary with various inputs.
+...              To run this, installation of ``requirements.txt``, typically into a python
+...              virtual environment, is required. Run this test suite from the root of the
+...              repository via ``robot integration/main.robot``
 Library           Process
 Library           String
 
 *** Variables ***
+# Path to target binary, again, from root of repository
 ${CLI_CMD}        bin/template_bin
 
 *** Test Cases ***
