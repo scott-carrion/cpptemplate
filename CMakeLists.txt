@@ -58,13 +58,12 @@ set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-Wall -O2 -g")
 set(CMAKE_C_FLAGS_MINSIZEREL "-Wall -Os")
 set(CMAKE_CXX_FLAGS_MINSIZEREL "-Wall -Os")
 
-# Add subdirectory. The cmake config file there will dictate how to make
-# the component libraries
+# Add subdirectory. The cmake config file there will dictate how to make the component libraries
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/${CMAKE_PROJECT_NAME})
 
 # Specify list of sources for the component's driver binary
 set(${CMAKE_PROJECT_NAME}_bin_src
-     ${PROJECT_SOURCE_DIR}/src/main.cpp
+    ${PROJECT_SOURCE_DIR}/src/main.cpp
 )
 
 # Add the test and main executables
