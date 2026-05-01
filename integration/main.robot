@@ -25,6 +25,9 @@ Test Divide By Zero
     ${result}=     Run Process    ${CLI_CMD}    divide    1    0    shell=${True}
     Should Contain    ${result.stderr.strip()}    Floating point exception
 
+Fail On Purpose
+    Fail    Uh oh
+
 *** Keywords ***
 Run Target Program
     [Documentation]    Runs 'main' binary, asserts no errors, and verifies output
