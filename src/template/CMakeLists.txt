@@ -2,7 +2,8 @@
 
 # Specify list of sources for the component library
 set (lib${CMAKE_PROJECT_NAME}_src
-     ${PROJECT_SOURCE_DIR}/src/${CMAKE_PROJECT_NAME}/${CMAKE_PROJECT_NAME}.cpp
+    ${PROJECT_SOURCE_DIR}/src/${CMAKE_PROJECT_NAME}/${CMAKE_PROJECT_NAME}.cpp
+    ${PROJECT_SOURCE_DIR}/src/${CMAKE_PROJECT_NAME}/${CMAKE_PROJECT_NAME}.c
 )
 
 # Add the library, which will take the name "lib${CMAKE_PROJECT_NAME}"

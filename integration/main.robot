@@ -36,8 +36,10 @@ Run Target Program
     # Start a child process that executes our target binary, with the specified args. Capture stdout and stderr
     ${result}=     Run Process    ${CLI_CMD}    @{split_args}    shell=${True}
 
-    # Assert that we see the expected output in stdout
-    Should Contain    ${result.stdout.strip()}    ${expected_output}
+    # Assert that we see the expected output in stdout.
+    # We expect to see the expected output string twice: One for the C++ "Template" class, and one
+    # for the C "template_t" structure
+    Should Contain X Times    ${result.stdout.strip()}    ${expected_output}    2
 
     # Assert that return code was 0, indicating no error
     Should Be Equal As Integers    ${result.rc}    0
